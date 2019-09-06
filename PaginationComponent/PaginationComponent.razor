@@ -1,0 +1,30 @@
+﻿@inherits PaginationComponentCode
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @DisableBackwardNavigation()">
+            <a class="page-link @CustomClass @DisableBackwardNavigation()" href="javascript:void(0)" @onclick=@(() => OnPageChange.InvokeAsync(1))>First</a>
+        </li>
+        <li class="page-item @DisableBackwardNavigation()">
+            <a class="page-link @CustomClass @DisableBackwardNavigation()" href="javascript:void(0)" @onclick=@(() => OnPageChange.InvokeAsync(CurrentPage - 1))>Previous</a>
+        </li>
+
+        @{
+            @for (var page = 1; page <= LastPage; page++)
+            {
+                <li class="page-item @(page == CurrentPage ? "active" : "")">
+                    @{ var currentPage = page;}
+                    <a class="page-link @CustomClass" href="javascript:void(0)" @onclick=@(() => OnPageChange.InvokeAsync(currentPage))>@(currentPage)</a>
+                </li>
+            }
+        }
+
+        <li class="page-item @DisableForwardNavigation()">
+            <a class="page-link @CustomClass @DisableForwardNavigation()" href="javascript:void(0)" @onclick=@(() => OnPageChange.InvokeAsync(GetNextPage()))>Next</a>
+        </li>
+        <li class="page-item @DisableForwardNavigation()">
+            <a class="page-link @CustomClass @DisableForwardNavigation()" href="javascript:void(0)" @onclick=@(() => OnPageChange.InvokeAsync(LastPage))>Last</a>
+        </li>
+
+    </ul>
+</nav>
